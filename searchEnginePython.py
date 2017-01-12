@@ -6,41 +6,25 @@ import os
 import numpy
 #from numpy import *
 from scipy import io
-
-"""
-This is the image search demo.
-"""
+import cPickle
 
 
 class SearchDemo:
 
     def __init__(self):
         # load list of images
-        #self.path = './thumbnails/'
         self.path = './street2shop/'
-        #self.path = './sample/'
-        #self.path = './images/'
         self.imlist = [os.path.join(self.path,f) for f in os.listdir(self.path) if f.endswith('.jpg')]
         self.nbr_images = len(self.imlist)
         self.ndx = range(self.nbr_images)
 
-        # set max number of results to show
-        #self.dataset = io.loadmat("256feat2048Norml.mat")
-        #self.feat = self.dataset['feat']
-        #self.listName = self.dataset['rgbImgList']
-        #self.imNum, self.dim = self.feat.shape
-        import h5py
-        self.dataset = h5py.File("feat4096Norml.mat")
-        self.feat = self.dataset['feat_norm'][()].T
-        self.listName = self.dataset['imgNamList']
+        input = open('feat_street2shop.pkl', 'rb')
+        self.feat = cPickle.load(input)
+        self.imNamelist = cPickle.load(input)
+        input.close()
         self.imNum, self.dim = self.feat.shape
-        self.imNamelist = []
-        for classes in self.listName:
-            for image in classes:
-                self.imNamelist.append(''.join(chr(i) for i in self.dataset[image][:]))
 
-
-        #self.imNamelist = [imname[0][0].encode('UTF-8') for imname in self.listName]
+        # set max number of results to show
         self.maxres = 54
 
         # header and footer html
