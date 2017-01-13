@@ -55,9 +55,11 @@ class SearchDemo:
                     <div class="row">
                         <div class="col-lg-4 col-lg-offset-4">
                             <div class="input-group input-group-lg">
-                                <input type="text" class="form-control" placeholder="以图搜图" name="srch-term" id="srch-term">
+                                <input id="imname" type="text" class="form-control" placeholder="以图搜图" name="srch-term" id="srch-term">
                                     <div class="input-group-btn">
-                                        <button class="btn btn-gray" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                                        <button class="btn btn-gray" type="submit">
+                                            <i class="glyphicon glyphicon-search" onclick="javascript:window.location.href=document.getElementById('imname').value;"></i>
+                                        </button>
                                     </div>
                             </div>
                         </div>
