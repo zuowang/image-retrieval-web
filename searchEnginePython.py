@@ -25,7 +25,7 @@ class SearchDemo:
         self.imNum, self.dim = self.feat.shape
 
         # set max number of results to show
-        self.maxres = 54
+        self.maxres =20 
 
         # header and footer html
         self.header = """
@@ -82,6 +82,11 @@ class SearchDemo:
             #    score[i] = numpy.dot(queryVec, tempVec)
             #rank_ID = numpy.argsort(score[:,0])[::-1]
 
+            score = numpy.dot(queryVec, self.feat.T)
+            rank_ID = numpy.argsort(score)[::-1]
+            
+            # average side expansion
+            queryVec = numpy.vstack((queryVec, self.feat[rank_ID[:10]])).mean(axis=0)
             score = numpy.dot(queryVec, self.feat.T)
             rank_ID = numpy.argsort(score)[::-1]
 
